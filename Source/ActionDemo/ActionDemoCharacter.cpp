@@ -66,6 +66,16 @@ void AActionDemoCharacter::BeginPlay()
 	}
 }
 
+void AActionDemoCharacter::PrimaryAttack()
+{
+	FTransform SpawnTM = FTransform(GetControlRotation(), GetActorLocation());
+
+	FActorSpawnParameters SpawnParams;
+	SpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+	
+	GetWorld()->SpawnActor<AActor>(ProjectileClass, SpawnTM, SpawnParams);
+}
+
 //////////////////////////////////////////////////////////////////////////
 // Input
 
@@ -84,6 +94,8 @@ void AActionDemoCharacter::SetupPlayerInputComponent(class UInputComponent* Play
 		//Looking
 		EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &AActionDemoCharacter::Look);
 
+		//Shooting
+		EnhancedInputComponent->BindAction(ShootAction, ETriggerEvent::Triggered, this, &AActionDemoCharacter::PrimaryAttack);
 	}
 
 }
