@@ -16,6 +16,7 @@ ASMagicPojectile::ASMagicPojectile()
 	MovmentComp = CreateDefaultSubobject<UProjectileMovementComponent>("MovmentComp");
 	EffectComp = CreateDefaultSubobject<UParticleSystemComponent>("EffectComp");
 
+	// ÉèÖÃÅö×²ÎÄ¼þ
 	SphereComp->SetCollisionProfileName("Projectile");
 	RootComponent = SphereComp;
 
