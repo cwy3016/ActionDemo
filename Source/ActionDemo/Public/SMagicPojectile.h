@@ -20,7 +20,7 @@ public:
 	ASMagicPojectile();
 
 protected:
-	// ±©Â¶¸øÀ¶Í¼µÄÊôĞÔ
+	// base properties
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	USphereComponent* SphereComp;
 
