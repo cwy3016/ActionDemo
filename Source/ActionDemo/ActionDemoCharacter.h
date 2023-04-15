@@ -8,6 +8,8 @@
 #include "ActionDemoCharacter.generated.h"
 
 
+class USInteractionComponent;
+
 UCLASS(config=Game)
 class AActionDemoCharacter : public ACharacter
 {
@@ -41,6 +43,14 @@ class AActionDemoCharacter : public ACharacter
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
 	class UInputAction* ShootAction;
 
+	// interaction component
+	UPROPERTY(VisibleAnywhere)
+	class USInteractionComponent* InteractionComp;
+
+	// interaction action
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
+	class UInputAction* InteractionAction;
+
 public:
 	AActionDemoCharacter();
 	
@@ -64,7 +74,11 @@ protected:
 	// To add mapping context
 	virtual void BeginPlay();
 
+	// ¹¥»÷
 	void PrimaryAttack();
+
+	// »¥¶¯
+	void PrimaryInteract();
 
 public:
 	/** Returns CameraBoom subobject **/

@@ -16,7 +16,7 @@ ASItemChest::ASItemChest()
 	RootComponent = BaseMesh;
 	LidMesh->SetupAttachment(BaseMesh);
 
-	TargetPitch = 110.f
+	TargetPitch = 110.f;
 }
 
 // Called when the game starts or when spawned
