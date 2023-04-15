@@ -72,14 +72,19 @@ protected:
 	UPROPERTY(EditAnywhere, Category = "Attack")
 	UAnimMontage* AttackMontage;
 
+	FTimerHandle TimerHandle_PriamryAttack;
+
 	// APawn interface
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 	
 	// To add mapping context
 	virtual void BeginPlay();
 
-	// ¹¥»÷
+	// ¹¥»÷£¨Ö´ÐÐ¶¨Ê±Æ÷£©
 	void PrimaryAttack();
+
+	// ¹¥»÷£¨ÑÓÊ±Ö´ÐÐ£©
+	void PrimaryAttack_TimeElapsed();
 
 	// »¥¶¯
 	void PrimaryInteract();

@@ -73,7 +73,7 @@ void AActionDemoCharacter::BeginPlay()
 void AActionDemoCharacter::PrimaryAttack()
 {
 	PlayAnimMontage(AttackMontage);
-	GetWorldTimerManager().SetTimer(TimerHandle_PriamryAttack, this, &AActionDemoCharacter::PrimaryAttack_TimeElapsed, 0.5f);
+	GetWorldTimerManager().SetTimer(TimerHandle_PriamryAttack, this, &AActionDemoCharacter::PrimaryAttack_TimeElapsed, 10.f);
 }
 
 void AActionDemoCharacter::PrimaryAttack_TimeElapsed()
