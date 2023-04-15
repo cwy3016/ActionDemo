@@ -73,19 +73,12 @@ void AActionDemoCharacter::BeginPlay()
 void AActionDemoCharacter::PrimaryAttack()
 {
 	PlayAnimMontage(AttackMontage);
-	GetWorldTimerManager().SetTimer(TimerHandle_PriamryAttack, this, &AActionDemoCharacter::PrimaryAttack_TimeElapsed, 0.5f);
+	GetWorldTimerManager().SetTimer(TimerHandle_PriamryAttack, this, &AActionDemoCharacter::PrimaryAttack_TimeElapsed, 0.3f);
 }
 
 void AActionDemoCharacter::PrimaryAttack_TimeElapsed()
 {
-	FVector HandLocation = GetMesh()->GetSocketLocation("Muzzle_01");
-	FTransform SpawnTM = FTransform(GetControlRotation(), HandLocation);
-
-	FActorSpawnParameters SpawnParams;
-	SpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
-	SpawnParams.Instigator = this;
-
-	GetWorld()->SpawnActor<AActor>(ProjectileClass, SpawnTM, SpawnParams);
+	SpawnProjectile(ProjectileClass);
 }
 
 void AActionDemoCharacter::PrimaryInteract()
@@ -93,6 +86,41 @@ void AActionDemoCharacter::PrimaryInteract()
 	if (InteractionComp) {
 		InteractionComp->PrimaryInteract();
 	}
+}
+
+void AActionDemoCharacter::SpawnProjectile(TSubclassOf<AActor> ClassToSpawn)
+{
+	if (!ensure(ClassToSpawn)) return;
+
+	FVector HandLocation = GetMesh()->GetSocketLocation("Muzzle_01");
+
+	FActorSpawnParameters SpawnParams;
+	SpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+	SpawnParams.Instigator = this;
+
+	/* make spawn transform */
+	// setup collision query params;
+	FCollisionShape CollisionShape;
+	CollisionShape.SetSphere(20.f);
+
+	FCollisionObjectQueryParams CollisionObjParams;
+	CollisionObjParams.AddObjectTypesToQuery(ECC_WorldStatic);
+	CollisionObjParams.AddObjectTypesToQuery(ECC_WorldDynamic);
+	CollisionObjParams.AddObjectTypesToQuery(ECC_Pawn);
+
+	FCollisionQueryParams CollisionParams;
+	CollisionParams.AddIgnoredActor(this);
+
+	// check hit result of trace 
+	FVector TraceStart = FollowCamera->GetComponentLocation();
+	FVector TraceEnd = TraceStart + (GetControlRotation().Vector() * 5000);
+	FHitResult Hit;
+	if (GetWorld()->SweepSingleByObjectType(Hit, TraceStart, TraceEnd, FQuat::Identity, CollisionObjParams, CollisionShape, CollisionParams)) {
+		TraceEnd = Hit.ImpactPoint;
+	}
+	
+	FTransform SpawnTM = FTransform(FRotationMatrix::MakeFromX(TraceEnd - HandLocation).Rotator() , HandLocation);
+	GetWorld()->SpawnActor<AActor>(ClassToSpawn, SpawnTM, SpawnParams);
 }
 
 //////////////////////////////////////////////////////////////////////////

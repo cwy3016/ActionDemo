@@ -89,6 +89,9 @@ protected:
 	// »¥¶¯
 	void PrimaryInteract();
 
+	// Éú³Éprojectile
+	void SpawnProjectile(TSubclassOf<AActor> ClassToSpawn);
+
 public:
 	/** Returns CameraBoom subobject **/
 	FORCEINLINE class USpringArmComponent* GetCameraBoom() const { return CameraBoom; }
