@@ -3,7 +3,6 @@
 
 #include "SInteractionComponent.h"
 #include "SGameplayInterface.h"
-#include "DrawDebugHelpers.h"
 
 // Sets default values for this component's properties
 USInteractionComponent::USInteractionComponent()
@@ -51,7 +50,7 @@ void USInteractionComponent::PrimaryInteract()
 	MyOwner->GetActorEyesViewPoint(EyeLocation, EyeRotation);
 	End = EyeLocation + (EyeRotation.Vector() * 1000);
 	
-	GetWorld()->LineTraceSingleByObjectType(HitResult, EyeLocation, End, QueryParams);
+	GetWorld()->LineTraceSingleByObjectType(HitResult, Start, End, QueryParams);
 
 	AActor* HitActor = HitResult.GetActor();
 	if (HitActor) {
@@ -60,7 +59,5 @@ void USInteractionComponent::PrimaryInteract()
 			ISGameplayInterface::Execute_Interact(HitActor, MyPawn);
 		}
 	}
-
-	DrawDebugLine(GetWorld(), EyeLocation, End, FColor::Red, false, 2.f, 0, 2.f);
 }
 

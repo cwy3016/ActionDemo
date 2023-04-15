@@ -9,6 +9,7 @@
 
 
 class USInteractionComponent;
+class UAnimMontage;
 
 UCLASS(config=Game)
 class AActionDemoCharacter : public ACharacter
@@ -65,8 +66,11 @@ protected:
 			
 
 protected:
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere, Category = "Attack")
 	TSubclassOf<AActor> ProjectileClass;
+
+	UPROPERTY(EditAnywhere, Category = "Attack")
+	UAnimMontage* AttackMontage;
 
 	// APawn interface
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;

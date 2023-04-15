@@ -72,6 +72,8 @@ void AActionDemoCharacter::BeginPlay()
 
 void AActionDemoCharacter::PrimaryAttack()
 {
+	PlayAnimMontage(AttackMontage);
+	
 	FVector HandLocation =  GetMesh()->GetSocketLocation("Muzzle_01");
 	FTransform SpawnTM = FTransform(GetControlRotation(), HandLocation);
 
