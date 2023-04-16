@@ -44,6 +44,10 @@ class AActionDemoCharacter : public ACharacter
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
 	class UInputAction* ShootAction;
 
+		/** Look Input Action */
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
+	class UInputAction* DashShootAction;
+
 	// interaction component
 	UPROPERTY(VisibleAnywhere)
 	class USInteractionComponent* InteractionComp;
@@ -55,19 +59,20 @@ class AActionDemoCharacter : public ACharacter
 public:
 	AActionDemoCharacter();
 	
-
 protected:
 
 	/** Called for movement input */
 	void Move(const FInputActionValue& Value);
 
 	/** Called for looking input */
-	void Look(const FInputActionValue& Value);
-			
+	void Look(const FInputActionValue& Value);		
 
 protected:
 	UPROPERTY(EditAnywhere, Category = "Attack")
 	TSubclassOf<AActor> ProjectileClass;
+
+	UPROPERTY(EditAnywhere, Category = "Attack")
+	TSubclassOf<AActor> DashProjectileClass;
 
 	UPROPERTY(EditAnywhere, Category = "Attack")
 	UAnimMontage* AttackMontage;
@@ -85,6 +90,12 @@ protected:
 
 	// ¹¥»÷£¨ÑÓÊ±Ö´ÐÐ£©
 	void PrimaryAttack_TimeElapsed();
+
+	// Dash¹¥»÷£¨Ö´ÐÐ¶¨Ê±Æ÷£©
+	void DashAttack();
+
+	// Dash¹¥»÷£¨ÑÓÊ±Ö´ÐÐ£©
+	void DashAttack_TimeElapsed();
 
 	// »¥¶¯
 	void PrimaryInteract();

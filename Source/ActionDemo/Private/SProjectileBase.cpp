@@ -38,9 +38,9 @@ void ASProjectileBase::Explode_Implementation()
 {
 	// spawn emitter cannot be pending kill state
 	if (ensure(!IsPendingKill())) {
-		UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), ExplodeVFX, GetActorLocation(), GetActorRotation(), false);
-		Destroy();
+		UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), ExplodeVFX, GetActorLocation(), GetActorRotation());
 	}
+	Destroy();
 }
 
 // Called when the game starts or when spawned

@@ -81,6 +81,17 @@ void AActionDemoCharacter::PrimaryAttack_TimeElapsed()
 	SpawnProjectile(ProjectileClass);
 }
 
+void AActionDemoCharacter::DashAttack()
+{
+	PlayAnimMontage(AttackMontage);
+	GetWorldTimerManager().SetTimer(TimerHandle_PriamryAttack, this, &AActionDemoCharacter::DashAttack_TimeElapsed, 0.3f);
+}
+
+void AActionDemoCharacter::DashAttack_TimeElapsed()
+{
+	SpawnProjectile(DashProjectileClass);
+}
+
 void AActionDemoCharacter::PrimaryInteract()
 {
 	if (InteractionComp) {
@@ -143,6 +154,9 @@ void AActionDemoCharacter::SetupPlayerInputComponent(class UInputComponent* Play
 
 		// Shooting
 		EnhancedInputComponent->BindAction(ShootAction, ETriggerEvent::Triggered, this, &AActionDemoCharacter::PrimaryAttack);
+
+		// DashShooting
+		EnhancedInputComponent->BindAction(DashShootAction, ETriggerEvent::Triggered, this, &AActionDemoCharacter::DashAttack);
 
 		// Interact
 		EnhancedInputComponent->BindAction(InteractionAction, ETriggerEvent::Triggered, this, &AActionDemoCharacter::PrimaryInteract);
