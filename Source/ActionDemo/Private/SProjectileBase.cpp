@@ -6,6 +6,7 @@
 #include "Particles/ParticleSystemComponent.h"
 #include "Components/SphereComponent.h"
 #include "Kismet/GameplayStatics.h"
+#include "SAttributeComponent.h"
 
 // Sets default values
 ASProjectileBase::ASProjectileBase()
@@ -27,10 +28,18 @@ ASProjectileBase::ASProjectileBase()
 	MovmentComp->bRotationFollowsVelocity = true;
 	MovmentComp->bInitialVelocityInLocalSpace = true;
 
+	Damage = -10.f;
 }
 
 void ASProjectileBase::OnHit(AActor* SelfActor, AActor* OtherActor, FVector NormalImpulse, const FHitResult& Hit)
 {
+	if (OtherActor) {
+		USAttributeComponent* AttributeComp = Cast<USAttributeComponent>(OtherActor->GetComponentByClass(USAttributeComponent::StaticClass()));
+		if (AttributeComp) {
+			AttributeComp->ApplyHealthChange(Damage);
+		}
+	}
+	
 	Explode();
 }
 

@@ -38,6 +38,9 @@ protected:
 	// visual effect when explode
 	UPROPERTY(EditDefaultsOnly, Category = "Effect")
 	UParticleSystem* ExplodeVFX;
+
+	UPROPERTY(EditDefaultsOnly)
+	float Damage;
 	
 	// probably called by on component hit event
 	UFUNCTION()

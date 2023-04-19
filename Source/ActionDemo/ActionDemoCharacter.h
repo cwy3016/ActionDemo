@@ -10,6 +10,7 @@
 
 class USInteractionComponent;
 class UAnimMontage;
+class USAttributeComponent;
 
 UCLASS(config=Game)
 class AActionDemoCharacter : public ACharacter
@@ -55,6 +56,10 @@ class AActionDemoCharacter : public ACharacter
 	// interaction action
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
 	class UInputAction* InteractionAction;
+
+	// attribute component
+	UPROPERTY(VisibleAnywhere)
+	class USAttributeComponent* AttributeComp;
 
 public:
 	AActionDemoCharacter();

@@ -10,6 +10,7 @@
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "SInteractionComponent.h"
+#include "SAttributeComponent.h"
 
 
 //////////////////////////////////////////////////////////////////////////
@@ -51,8 +52,11 @@ AActionDemoCharacter::AActionDemoCharacter()
 	// Note: The skeletal mesh and anim blueprint references on the Mesh component (inherited from Character) 
 	// are set in the derived blueprint asset named ThirdPersonCharacter (to avoid direct content references in C++)
 
-	// ´´½¨InteractionComponent
+	// create a interactionComponent
 	InteractionComp = CreateDefaultSubobject<USInteractionComponent>("InteractionComp");
+
+	// create a attributeComponent
+	AttributeComp = CreateDefaultSubobject<USAttributeComponent>("AttributeComp");
 }
 
 void AActionDemoCharacter::BeginPlay()
