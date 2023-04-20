@@ -14,5 +14,7 @@ bool USAttributeComponent::ApplyHealthChange(float DeltaHealth)
 {
 	Health += DeltaHealth;
 	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Blue, FString::Printf(TEXT("Player %s health is: %f"), *(GetOwner()->GetName()), Health));
+
+	OnHealthChanged.Broadcast(nullptr, this, Health, DeltaHealth);
 	return true;
 }

@@ -45,25 +45,26 @@ class AActionDemoCharacter : public ACharacter
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
 	class UInputAction* ShootAction;
 
-		/** Look Input Action */
+	/** Look Input Action */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
 	class UInputAction* DashShootAction;
-
-	// interaction component
-	UPROPERTY(VisibleAnywhere)
-	class USInteractionComponent* InteractionComp;
 
 	// interaction action
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
 	class UInputAction* InteractionAction;
 
-	// attribute component
-	UPROPERTY(VisibleAnywhere)
-	class USAttributeComponent* AttributeComp;
 
 public:
 	AActionDemoCharacter();
 	
+	// attribute component
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	class USAttributeComponent* AttributeComp;
+
+	// interaction component
+	UPROPERTY(VisibleAnywhere)
+	class USInteractionComponent* InteractionComp;
+
 protected:
 
 	/** Called for movement input */
