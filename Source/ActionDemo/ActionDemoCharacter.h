@@ -41,13 +41,17 @@ class AActionDemoCharacter : public ACharacter
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
 	class UInputAction* LookAction;
 
-	/** Look Input Action */
+	/** Primary Attack Action */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
 	class UInputAction* ShootAction;
 
-	/** Look Input Action */
+	/** Dash Attack Action */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
 	class UInputAction* DashShootAction;
+
+	/** BlackHole Attack Action */
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
+	class UInputAction* BlackHoleShootAction;
 
 	// interaction action
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
@@ -81,6 +85,9 @@ protected:
 	TSubclassOf<AActor> DashProjectileClass;
 
 	UPROPERTY(EditAnywhere, Category = "Attack")
+	TSubclassOf<AActor> BlackHoleProjectileClass;
+
+	UPROPERTY(EditAnywhere, Category = "Attack")
 	UAnimMontage* AttackMontage;
 
 	FTimerHandle TimerHandle_PriamryAttack;
@@ -102,6 +109,12 @@ protected:
 
 	// Dash¹¥»÷£¨ÑÓÊ±Ö´ÐÐ£©
 	void DashAttack_TimeElapsed();
+
+	// BlackHole¹¥»÷£¨Ö´ÐÐ¶¨Ê±Æ÷£©
+	void BlackHoleAttack();
+
+	// BlackHole¹¥»÷£¨ÑÓÊ±Ö´ÐÐ£©
+	void BlackHoleAttack_TimeElapsed();
 
 	// »¥¶¯
 	void PrimaryInteract();

@@ -96,6 +96,17 @@ void AActionDemoCharacter::DashAttack_TimeElapsed()
 	SpawnProjectile(DashProjectileClass);
 }
 
+void AActionDemoCharacter::BlackHoleAttack()
+{
+	PlayAnimMontage(AttackMontage);
+	GetWorldTimerManager().SetTimer(TimerHandle_PriamryAttack, this, &AActionDemoCharacter::BlackHoleAttack_TimeElapsed, 0.3f);
+}
+
+void AActionDemoCharacter::BlackHoleAttack_TimeElapsed()
+{
+	SpawnProjectile(BlackHoleProjectileClass);
+}
+
 void AActionDemoCharacter::PrimaryInteract()
 {
 	if (InteractionComp) {
@@ -161,6 +172,9 @@ void AActionDemoCharacter::SetupPlayerInputComponent(class UInputComponent* Play
 
 		// DashShooting
 		EnhancedInputComponent->BindAction(DashShootAction, ETriggerEvent::Triggered, this, &AActionDemoCharacter::DashAttack);
+
+		// Interact
+		EnhancedInputComponent->BindAction(BlackHoleShootAction, ETriggerEvent::Triggered, this, &AActionDemoCharacter::BlackHoleAttack);
 
 		// Interact
 		EnhancedInputComponent->BindAction(InteractionAction, ETriggerEvent::Triggered, this, &AActionDemoCharacter::PrimaryInteract);

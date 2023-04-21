@@ -33,7 +33,7 @@ ASProjectileBase::ASProjectileBase()
 
 void ASProjectileBase::OnHit(AActor* SelfActor, AActor* OtherActor, FVector NormalImpulse, const FHitResult& Hit)
 {
-	if (OtherActor) {
+	if (OtherActor && OtherActor != GetInstigator()) {
 		USAttributeComponent* AttributeComp = Cast<USAttributeComponent>(OtherActor->GetComponentByClass(USAttributeComponent::StaticClass()));
 		if (AttributeComp) {
 			AttributeComp->ApplyHealthChange(Damage);
