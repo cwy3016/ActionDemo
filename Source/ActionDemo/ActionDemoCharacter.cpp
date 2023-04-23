@@ -59,6 +59,13 @@ AActionDemoCharacter::AActionDemoCharacter()
 	AttributeComp = CreateDefaultSubobject<USAttributeComponent>("AttributeComp");
 }
 
+void AActionDemoCharacter::PostInitializeComponents()
+{
+	Super::PostInitializeComponents();
+
+	AttributeComp->OnHealthChanged.AddDynamic(this, &AActionDemoCharacter::OnHealthChanged);
+}
+
 void AActionDemoCharacter::BeginPlay()
 {
 	// Call the base class  
@@ -147,6 +154,14 @@ void AActionDemoCharacter::SpawnProjectile(TSubclassOf<AActor> ClassToSpawn)
 	
 	FTransform SpawnTM = FTransform(FRotationMatrix::MakeFromX(TraceEnd - HandLocation).Rotator() , HandLocation);
 	GetWorld()->SpawnActor<AActor>(ClassToSpawn, SpawnTM, SpawnParams);
+}
+
+void AActionDemoCharacter::OnHealthChanged(AActor* HitInstigator, USAttributeComponent* OwningComp, float Health, float Delta)
+{
+	if (Health < 0.f) {
+		APlayerController* PC = Cast<APlayerController>(GetController());
+		DisableInput(PC);
+	}
 }
 
 //////////////////////////////////////////////////////////////////////////

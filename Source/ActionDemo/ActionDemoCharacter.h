@@ -122,6 +122,12 @@ protected:
 	// Éú³Éprojectile
 	void SpawnProjectile(TSubclassOf<AActor> ClassToSpawn);
 
+	// subscribe Attribute->FOnHealthChanged
+	void OnHealthChanged(AActor* HitInstigator, USAttributeComponent* OwningComp, float Health, float Delta);
+
+	// do something after init components
+	virtual void PostInitializeComponents() override;
+
 public:
 	/** Returns CameraBoom subobject **/
 	FORCEINLINE class USpringArmComponent* GetCameraBoom() const { return CameraBoom; }

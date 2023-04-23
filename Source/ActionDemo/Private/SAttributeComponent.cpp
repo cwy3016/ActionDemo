@@ -23,3 +23,8 @@ bool USAttributeComponent::ApplyHealthChange(float DeltaHealth)
 	OnHealthChanged.Broadcast(nullptr, this, Health, DeltaHealth);
 	return true;
 }
+
+bool USAttributeComponent::IsAlive()
+{
+	return Health > 0.f;
+}
