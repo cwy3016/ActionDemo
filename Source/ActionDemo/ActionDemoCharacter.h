@@ -98,28 +98,22 @@ protected:
 	// To add mapping context
 	virtual void BeginPlay();
 
-	// 攻击（执行定时器）
+	// primary attack
 	void PrimaryAttack();
-
-	// 攻击（延时执行）
 	void PrimaryAttack_TimeElapsed();
 
-	// Dash攻击（执行定时器）
+	// dash attack
 	void DashAttack();
-
-	// Dash攻击（延时执行）
 	void DashAttack_TimeElapsed();
 
-	// BlackHole攻击（执行定时器）
+	// blackHole attack
 	void BlackHoleAttack();
-
-	// BlackHole攻击（延时执行）
 	void BlackHoleAttack_TimeElapsed();
 
-	// 互动
+	// interact
 	void PrimaryInteract();
 
-	// 生成projectile
+	// a common spawn projectile function
 	void SpawnProjectile(TSubclassOf<AActor> ClassToSpawn);
 
 	// subscribe Attribute->FOnHealthChanged

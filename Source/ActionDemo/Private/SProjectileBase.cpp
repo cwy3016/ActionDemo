@@ -18,7 +18,7 @@ ASProjectileBase::ASProjectileBase()
 	MovmentComp = CreateDefaultSubobject<UProjectileMovementComponent>("MovmentComp");
 	EffectComp = CreateDefaultSubobject<UParticleSystemComponent>("EffectComp");
 
-	// ÉèÖÃÅö×²ÎÄ¼þ
+	// load collision file named projectile
 	SphereComp->SetCollisionProfileName("Projectile");
 	RootComponent = SphereComp;
 
@@ -34,8 +34,7 @@ ASProjectileBase::ASProjectileBase()
 void ASProjectileBase::OnHit(AActor* SelfActor, AActor* OtherActor, FVector NormalImpulse, const FHitResult& Hit)
 {
 	if (OtherActor && OtherActor != GetInstigator()) {
-		USAttributeComponent* AttributeComp = Cast<USAttributeComponent>(OtherActor->GetComponentByClass(USAttributeComponent::StaticClass()));
-		if (AttributeComp) {
+		if (USAttributeComponent* AttributeComp = Cast<USAttributeComponent>(OtherActor->GetComponentByClass(USAttributeComponent::StaticClass()));) {
 			AttributeComp->ApplyHealthChange(Damage);
 		}
 	}
