@@ -117,6 +117,7 @@ protected:
 	void SpawnProjectile(TSubclassOf<AActor> ClassToSpawn);
 
 	// subscribe Attribute->FOnHealthChanged
+	UFUNCTION()
 	void OnHealthChanged(AActor* HitInstigator, USAttributeComponent* OwningComp, float Health, float Delta);
 
 	// do something after init components

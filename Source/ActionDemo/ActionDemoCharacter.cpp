@@ -125,7 +125,7 @@ void AActionDemoCharacter::SpawnProjectile(TSubclassOf<AActor> ClassToSpawn)
 {
 	if (!ensure(ClassToSpawn)) return;
 
-	FVector HandLocation = GetMesh()->GetSocketLocation("Muzzle_01");
+	FVector HandLocation = GetMesh()->GetSocketLocation("weapon_l");
 
 	FActorSpawnParameters SpawnParams;
 	SpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
@@ -158,7 +158,7 @@ void AActionDemoCharacter::SpawnProjectile(TSubclassOf<AActor> ClassToSpawn)
 
 void AActionDemoCharacter::OnHealthChanged(AActor* HitInstigator, USAttributeComponent* OwningComp, float Health, float Delta)
 {
-	if (Health < 0.f) {
+	if (Health <= 0.f) {
 		APlayerController* PC = Cast<APlayerController>(GetController());
 		DisableInput(PC);
 	}

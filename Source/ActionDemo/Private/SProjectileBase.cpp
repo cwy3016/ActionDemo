@@ -28,7 +28,7 @@ ASProjectileBase::ASProjectileBase()
 	MovmentComp->bRotationFollowsVelocity = true;
 	MovmentComp->bInitialVelocityInLocalSpace = true;
 
-	Damage = -10.f;
+	Damage = -50.f;
 }
 
 void ASProjectileBase::OnHit(AActor* SelfActor, AActor* OtherActor, FVector NormalImpulse, const FHitResult& Hit)
