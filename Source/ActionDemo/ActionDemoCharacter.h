@@ -90,7 +90,7 @@ protected:
 	UPROPERTY(EditAnywhere, Category = "Attack")
 	UAnimMontage* AttackMontage;
 
-	FTimerHandle TimerHandle_PriamryAttack;
+	FTimerHandle TimerHandle_PrimaryAttack;
 
 	// APawn interface
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;

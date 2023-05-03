@@ -84,7 +84,7 @@ void AActionDemoCharacter::BeginPlay()
 void AActionDemoCharacter::PrimaryAttack()
 {
 	PlayAnimMontage(AttackMontage);
-	GetWorldTimerManager().SetTimer(TimerHandle_PriamryAttack, this, &AActionDemoCharacter::PrimaryAttack_TimeElapsed, 0.3f);
+	GetWorldTimerManager().SetTimer(TimerHandle_PrimaryAttack, this, &AActionDemoCharacter::PrimaryAttack_TimeElapsed, 0.3f);
 }
 
 void AActionDemoCharacter::PrimaryAttack_TimeElapsed()
@@ -95,7 +95,7 @@ void AActionDemoCharacter::PrimaryAttack_TimeElapsed()
 void AActionDemoCharacter::DashAttack()
 {
 	PlayAnimMontage(AttackMontage);
-	GetWorldTimerManager().SetTimer(TimerHandle_PriamryAttack, this, &AActionDemoCharacter::DashAttack_TimeElapsed, 0.3f);
+	GetWorldTimerManager().SetTimer(TimerHandle_PrimaryAttack, this, &AActionDemoCharacter::DashAttack_TimeElapsed, 0.3f);
 }
 
 void AActionDemoCharacter::DashAttack_TimeElapsed()
@@ -106,7 +106,7 @@ void AActionDemoCharacter::DashAttack_TimeElapsed()
 void AActionDemoCharacter::BlackHoleAttack()
 {
 	PlayAnimMontage(AttackMontage);
-	GetWorldTimerManager().SetTimer(TimerHandle_PriamryAttack, this, &AActionDemoCharacter::BlackHoleAttack_TimeElapsed, 0.3f);
+	GetWorldTimerManager().SetTimer(TimerHandle_PrimaryAttack, this, &AActionDemoCharacter::BlackHoleAttack_TimeElapsed, 0.3f);
 }
 
 void AActionDemoCharacter::BlackHoleAttack_TimeElapsed()
