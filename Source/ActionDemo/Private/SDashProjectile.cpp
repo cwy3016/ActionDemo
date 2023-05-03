@@ -4,7 +4,6 @@
 #include "SDashProjectile.h"
 #include "GameFramework/ProjectileMovementComponent.h"
 #include "Particles/ParticleSystemComponent.h"
-#include "Components/SphereComponent.h"
 #include "Kismet/GameplayStatics.h"
 
 ASDashProjectile::ASDashProjectile()
