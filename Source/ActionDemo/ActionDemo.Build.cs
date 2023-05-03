@@ -17,7 +17,8 @@ public class ActionDemo : ModuleRules
 			"HeadMountedDisplay", 
 			"EnhancedInput",
 			"AIModule",
-			"GameplayTasks"
+			"GameplayTasks",
+			"MixamoAnimationRetargeting"
 		});
 	}
 }
