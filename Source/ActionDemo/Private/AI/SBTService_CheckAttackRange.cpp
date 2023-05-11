@@ -19,7 +19,9 @@ void USBTService_CheckAttackRange::TickNode(UBehaviorTreeComponent& OwnerComp, u
 				APawn* AIPawn = AIController->GetPawn();
 				if (ensure(AIPawn)) {
 					float Distance = FVector::Distance(TargetActor->GetActorLocation(), AIPawn->GetActorLocation());
-					BlackboardComponent->SetValueAsBool(AttackRangeKey.SelectedKeyName, Distance < 1000.f);
+					BlackboardComponent->SetValueAsBool(AttackRangeKey.SelectedKeyName, Distance < 800.f);
+					bool bValueAsBool = BlackboardComponent->GetValueAsBool(AttackRangeKey.SelectedKeyName);
+					GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, bValueAsBool?TEXT("true"):TEXT("false"));
 				}
 			}
 		}
