@@ -16,7 +16,7 @@ EBTNodeResult::Type USBTTask_RangeAttack::ExecuteTask(UBehaviorTreeComponent& Ow
 			return EBTNodeResult::Failed;
 		}
 
-		FVector MuzzleLocation = MyPawn->GetMesh()->GetSocketLocation("Muzzle_Front");
+		FVector MuzzleLocation = MyPawn->GetMesh()->GetSocketLocation("Muzzle_Front_XForward");
 		AActor* TargetActor = Cast<AActor>(OwnerComp.GetBlackboardComponent()->GetValueAsObject("TargetActor"));
 		if (!TargetActor) {
 			return EBTNodeResult::Failed;
@@ -25,9 +25,12 @@ EBTNodeResult::Type USBTTask_RangeAttack::ExecuteTask(UBehaviorTreeComponent& Ow
 		// spawn projectile
 		FVector Direction = TargetActor->GetActorLocation() - MuzzleLocation;
 		FRotator MuzzleRotation = Direction.Rotation();
-		FActorSpawnParameters Parameters;
-		Parameters.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
-		AActor* proj = GetWorld()->SpawnActor<AActor>(ProjectileClass, MuzzleLocation, MuzzleRotation, Parameters);
+		
+		FActorSpawnParameters SpawnParams;
+		SpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+		SpawnParams.Instigator = MyPawn;
+		
+		AActor* proj = GetWorld()->SpawnActor<AActor>(ProjectileClass, MuzzleLocation, MuzzleRotation, SpawnParams);
 		return proj ? EBTNodeResult::Succeeded : EBTNodeResult::Failed;
 	}
 	return EBTNodeResult::Failed;

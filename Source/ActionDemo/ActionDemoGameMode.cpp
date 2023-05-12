@@ -1,9 +1,11 @@
 // Copyright Epic Games, Inc. All Rights Reserved.
 
 #include "ActionDemoGameMode.h"
-#include "ActionDemoCharacter.h"
+#include "AI/SAICharacter.h"
 #include "EnvironmentQuery/EnvQueryManager.h"
 #include "UObject/ConstructorHelpers.h"
+#include "Engine.h"
+#include "SAttributeComponent.h"
 
 AActionDemoGameMode::AActionDemoGameMode()
 {
@@ -15,6 +17,7 @@ AActionDemoGameMode::AActionDemoGameMode()
 	}
 
 	SpawnTimeInterval = 2.f;
+	MaxBotNum = 10;
 }
 
 void AActionDemoGameMode::StartPlay()
@@ -38,6 +41,24 @@ void AActionDemoGameMode::OnSpawnBotQueryCompleted(UEnvQueryInstanceBlueprintWra
 		return;
 	}
 
+	// num should less than max bot number
+	int32 BotAliveNum = 0;
+	for (TActorIterator<ASAICharacter> It(GetWorld()); It; ++It)
+	{
+		const ASAICharacter* Bot = *It;
+		if (USAttributeComponent* AttributeComp = Cast<USAttributeComponent>(Bot->GetComponentByClass(USAttributeComponent::StaticClass())); AttributeComp->IsAlive()) {
+			++BotAliveNum;
+		}
+	}
+
+	if (DifficultyCurve) {
+		MaxBotNum = DifficultyCurve->GetFloatValue(GetWorld()->TimeSeconds);
+	}
+	
+	if (BotAliveNum >= MaxBotNum) {
+		return;
+	}
+	
 	TArray<FVector> Locations = QueryInstance->GetResultsAsLocations();
 	if (Locations.Num() > 0) {
 		GetWorld()->SpawnActor<AActor>(MinionClass, Locations[0], FRotator::ZeroRotator);

@@ -29,6 +29,12 @@ protected:
 	UPROPERTY(EditDefaultsOnly, Category="AI")
 	TSubclassOf<AActor>MinionClass;
 
+	UPROPERTY(EditDefaultsOnly, Category="AI")
+	float MaxBotNum;
+
+	UPROPERTY(EditDefaultsOnly, Category="AI")
+	UCurveFloat* DifficultyCurve;
+
 	FTimerHandle TimerHandle_SpawnBot;
 
 	UFUNCTION()
