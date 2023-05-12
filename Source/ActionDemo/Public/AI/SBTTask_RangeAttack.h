@@ -15,8 +15,14 @@ class ACTIONDEMO_API USBTTask_RangeAttack : public UBTTaskNode
 	GENERATED_BODY()
 
 public:
+	USBTTask_RangeAttack();
+
+protected:
 	UPROPERTY(EditAnywhere, Category="AI")
 	TSubclassOf<AActor> ProjectileClass;
+
+	UPROPERTY(EditAnywhere, Category="AI")
+	float MaxProjSpread;
 	
 	virtual EBTNodeResult::Type ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory) override;
 };

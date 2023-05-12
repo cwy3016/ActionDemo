@@ -45,8 +45,7 @@ void AActionDemoGameMode::OnSpawnBotQueryCompleted(UEnvQueryInstanceBlueprintWra
 	int32 BotAliveNum = 0;
 	for (TActorIterator<ASAICharacter> It(GetWorld()); It; ++It)
 	{
-		const ASAICharacter* Bot = *It;
-		if (USAttributeComponent* AttributeComp = Cast<USAttributeComponent>(Bot->GetComponentByClass(USAttributeComponent::StaticClass())); AttributeComp->IsAlive()) {
+		if (USAttributeComponent::IsActorAlive(*It)) {
 			++BotAliveNum;
 		}
 	}

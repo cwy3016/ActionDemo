@@ -4,8 +4,14 @@
 #include "AI/SBTTask_RangeAttack.h"
 
 #include "AIController.h"
+#include "SAttributeComponent.h"
 #include "BehaviorTree/BlackboardComponent.h"
 #include "GameFramework/Character.h"
+
+USBTTask_RangeAttack::USBTTask_RangeAttack()
+{
+	MaxProjSpread = 2.f;
+}
 
 EBTNodeResult::Type USBTTask_RangeAttack::ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory)
 {
@@ -22,16 +28,23 @@ EBTNodeResult::Type USBTTask_RangeAttack::ExecuteTask(UBehaviorTreeComponent& Ow
 			return EBTNodeResult::Failed;
 		}
 
-		// spawn projectile
+		if (!USAttributeComponent::IsActorAlive(TargetActor)) {
+			return EBTNodeResult::Failed;
+		}
+
+		// spawn projectile random
 		FVector Direction = TargetActor->GetActorLocation() - MuzzleLocation;
 		FRotator MuzzleRotation = Direction.Rotation();
+
+		MuzzleRotation.Pitch += FMath::RandRange(-MaxProjSpread, MaxProjSpread);
+		MuzzleRotation.Yaw += FMath::RandRange(-MaxProjSpread, MaxProjSpread);
+		MuzzleRotation.Roll += FMath::RandRange(-MaxProjSpread, MaxProjSpread);
 		
 		FActorSpawnParameters SpawnParams;
 		SpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
 		SpawnParams.Instigator = MyPawn;
 		
-		AActor* proj = GetWorld()->SpawnActor<AActor>(ProjectileClass, MuzzleLocation, MuzzleRotation, SpawnParams);
-		return proj ? EBTNodeResult::Succeeded : EBTNodeResult::Failed;
+		return GetWorld()->SpawnActor<AActor>(ProjectileClass, MuzzleLocation, MuzzleRotation, SpawnParams) ? EBTNodeResult::Succeeded : EBTNodeResult::Failed;
 	}
 	return EBTNodeResult::Failed;
 }

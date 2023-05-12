@@ -10,6 +10,21 @@ USAttributeComponent::USAttributeComponent()
 	Health = MaxHealth;
 }
 
+USAttributeComponent* USAttributeComponent::GetAttributes(AActor* FromActor)
+{
+	if (FromActor) {
+		return Cast<USAttributeComponent>(FromActor->GetComponentByClass(USAttributeComponent::StaticClass()));
+	}
+	return nullptr;
+}
+
+bool USAttributeComponent::IsActorAlive(AActor* FromActor)
+{
+	if (USAttributeComponent* AttributeComp = GetAttributes(FromActor)) {
+		return AttributeComp->IsAlive();
+	}
+	return false;
+}
 
 bool USAttributeComponent::ApplyHealthChange(AActor* HitInstigator, float DeltaHealth)
 {
