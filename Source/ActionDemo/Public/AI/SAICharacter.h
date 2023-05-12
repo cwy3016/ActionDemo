@@ -21,6 +21,9 @@ protected:
 	UPROPERTY(VisibleAnywhere, Category="Components")
 	UPawnSensingComponent* PawnSensingComp;
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	class USAttributeComponent* AttributeComp;
+
 	UFUNCTION()
 	void OnPawnSeen(APawn* Pawn);
 };
