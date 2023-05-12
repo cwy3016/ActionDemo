@@ -11,7 +11,7 @@ USAttributeComponent::USAttributeComponent()
 }
 
 
-bool USAttributeComponent::ApplyHealthChange(float DeltaHealth)
+bool USAttributeComponent::ApplyHealthChange(AActor* HitInstigator, float DeltaHealth)
 {
 	
 	Health += DeltaHealth;
@@ -20,7 +20,7 @@ bool USAttributeComponent::ApplyHealthChange(float DeltaHealth)
 
 	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Blue, FString::Printf(TEXT("%s health is: %f"), *(GetOwner()->GetName()), Health));
 
-	OnHealthChanged.Broadcast(nullptr, this, Health, DeltaHealth);
+	OnHealthChanged.Broadcast(HitInstigator, this, Health, DeltaHealth);
 	return true;
 }
 

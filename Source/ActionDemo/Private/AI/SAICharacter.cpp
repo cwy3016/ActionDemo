@@ -26,16 +26,16 @@ void ASAICharacter::PostInitializeComponents()
 
 void ASAICharacter::OnPawnSeen(APawn* Pawn)
 {
-	AAIController* AIC = Cast<AAIController>(GetController());
-	if (AIC) {
-		UBlackboardComponent* BBComp = AIC->GetBlackboardComponent();
-		BBComp->SetValueAsObject("TargetActor", Pawn);
-	}
+	SetTargetActor(Pawn);
 }
 
 void ASAICharacter::OnHealthChanged(AActor* HitInstigator, USAttributeComponent* OwningComp, float Health, float Delta)
 {
 	if (Delta < 0.f) {
+		if (HitInstigator!=this) {
+			SetTargetActor(HitInstigator);	
+		}
+		
 		if (Health <= 0.f) {
 			// stop BT
 			if (AAIController* AIC = Cast<AAIController>(GetController())) {
@@ -49,6 +49,15 @@ void ASAICharacter::OnHealthChanged(AActor* HitInstigator, USAttributeComponent*
 			// set lifespan
 			SetLifeSpan(5.f);
 		}
+	}
+}
+
+void ASAICharacter::SetTargetActor(AActor* NewTarget)
+{
+	AAIController* AIC = Cast<AAIController>(GetController());
+	if (AIC) {
+		UBlackboardComponent* BBComp = AIC->GetBlackboardComponent();
+		BBComp->SetValueAsObject("TargetActor", NewTarget);
 	}
 }
 

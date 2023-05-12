@@ -35,11 +35,20 @@ void ASProjectileBase::OnHit(AActor* SelfActor, AActor* OtherActor, FVector Norm
 {
 	if (OtherActor && OtherActor != GetInstigator()) {
 		if (USAttributeComponent* AttributeComp = Cast<USAttributeComponent>(OtherActor->GetComponentByClass(USAttributeComponent::StaticClass()))) {
-			AttributeComp->ApplyHealthChange(Damage);
+			AttributeComp->ApplyHealthChange(GetInstigator(), Damage);
 		}
+		Explode();
 	}
-	
-	Explode();
+}
+
+void ASProjectileBase::OnActorOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+{
+	if (OtherActor && OtherActor != GetInstigator()) {
+		if (USAttributeComponent* AttributeComp = Cast<USAttributeComponent>(OtherActor->GetComponentByClass(USAttributeComponent::StaticClass()))) {
+			AttributeComp->ApplyHealthChange(GetInstigator(), Damage);
+		}
+		Explode();
+	}
 }
 
 void ASProjectileBase::Explode_Implementation()
@@ -57,7 +66,7 @@ void ASProjectileBase::BeginPlay()
 	Super::BeginPlay();
 
 	OnActorHit.AddDynamic(this, &ASProjectileBase::OnHit);
-
+	SphereComp->OnComponentBeginOverlap.AddDynamic(this, &ASProjectileBase::OnActorOverlap);
 	SphereComp->IgnoreActorWhenMoving(GetInstigator(), true);
 }
 
